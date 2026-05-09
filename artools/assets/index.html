@@ -312,9 +312,107 @@
                 opacity: 1 !important;
             }
         }
+        /* Navigation (Inspired by design_system.html) */
+        .header-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-container {
+            max-width: 80rem;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 1.5rem;
+            position: relative;
+        }
+
+        .header-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex: 1;
+        }
+
+        .header-links.justify-end {
+            justify-content: flex-end;
+        }
+
+        .nav-link {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--text-secondary);
+        }
+
+        .header-logo {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .logo-text {
+            font-weight: 700;
+            letter-spacing: -0.05em;
+            font-size: 1.125rem;
+            color: var(--text-primary);
+        }
+
+        @media (max-width: 768px) {
+            .hide-mobile { display: none; }
+            .header-links { gap: 1rem; }
+        }
+
+        /* Nav Load Animation (from design_system.html) */
+        .nav-load {
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.8s ease-out;
+        }
+
+        .nav-load.loaded {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
+
+    <!-- Navigation -->
+    <header class="header-nav nav-load">
+        <div class="header-container">
+            <div class="header-links">
+                <a href="#design" class="nav-link">Design</a>
+                <a href="#technology" class="nav-link hide-mobile">Tech</a>
+            </div>
+            <div class="header-logo group">
+                <span class="logo-text">PRECISION PEN</span>
+            </div>
+            <div class="header-links justify-end">
+                <a href="#buy" class="nav-link hide-mobile">Buy</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </header>
 
     <!-- Scroll Track -->
     <div class="hero-track">
@@ -384,6 +482,11 @@
 
         document.addEventListener("DOMContentLoaded", () => {
             const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            // Navigation load animation (from design_system.html)
+            setTimeout(() => {
+                document.querySelector('.header-nav').classList.add('loaded');
+            }, 100);
 
             // Initialize Lenis for buttery smooth scrolling
             if (!prefersReducedMotion) {
