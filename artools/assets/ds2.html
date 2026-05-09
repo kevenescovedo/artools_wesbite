@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Glass & Air Design System - ds2</title>
+    <script src="templates/digital-architect.aura.build/assets/resource_3fa48481346f.js"></script>
+    <script src="templates/digital-architect.aura.build/assets/iconify-icon_d39ffc6e4c56.js"></script>
+    <link href="templates/digital-architect.aura.build/assets/css2_19fd9cc6b396.css" rel="stylesheet" />
+    <style>
+        :root {
+            --bg-main: #FFFFFF;
+            --bg-secondary: #F5F5F0;
+            --text-primary: #1C1C1C;
+            --text-secondary: #6B6B6B;
+            --border-color: #E0E0E0;
+            --accent: #1C1C1C;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* Identical Grid Background */
+        .grid-bg {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+        }
+
+        /* Glassmorphism Classes */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .glass-panel:hover {
+            background: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+
+        /* Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(2rem);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Masked Text Reveal */
+        .text-reveal-wrapper {
+            overflow: hidden;
+            display: inline-block;
+            vertical-align: bottom;
+        }
+
+        .text-reveal-content {
+            transform: translateY(110%);
+            opacity: 0;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.2s ease;
+            display: block;
+        }
+
+        .reveal-active .text-reveal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Stagger Delays */
+        .delay-100 { transition-delay: 0.1s; }
+        .delay-200 { transition-delay: 0.2s; }
+        .delay-300 { transition-delay: 0.3s; }
+        .delay-500 { transition-delay: 0.5s; }
+        .delay-700 { transition-delay: 0.7s; }
+
+        /* Transparent Text Effect (Same as first) */
+        .transparent-text {
+            background: url('templates/digital-architect.aura.build/assets/c7fa69dd-d7fb-48f2-a866-ef3663_f6b789593f38.webp') center/cover;
+            background-attachment: fixed;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Button Animations */
+        .creative-btn {
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+        .creative-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--accent);
+            border-radius: 10rem;
+            z-index: -2;
+        }
+        .creative-btn::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background-color: #6B6B6B;
+            transition: all .3s;
+            border-radius: 10rem;
+            z-index: -1;
+        }
+        .creative-btn:hover::before {
+            width: 100%;
+        }
+
+        /* Flashlight Card (Light Version) */
+        .flashlight-card {
+            position: relative;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 20px;
+        }
+
+        .flashlight-card::before {
+            content: "";
+            position: absolute;
+            inset: 0px;
+            background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y),
+                    rgba(0, 0, 0, 0.05),
+                    transparent 40%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+            z-index: 2;
+            border-radius: 20px;
+        }
+
+        .flashlight-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Nav Load Animation */
+        .nav-load {
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.8s ease-out;
+        }
+
+        .nav-load.loaded {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Floating animations */
+        @keyframes float-slow {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        .animate-float-slow {
+            animation: float-slow 8s ease-in-out infinite;
+        }
+        
+        /* Pastel Glows for creativity */
+        .pastel-glow {
+            box-shadow: 0 0 40px rgba(184, 216, 255, 0.5);
+        }
+        .pastel-glow:hover {
+            box-shadow: 0 0 60px rgba(255, 184, 216, 0.5);
+        }
+    </style>
+</head>
+
+<body class="antialiased min-h-screen selection:bg-black selection:text-white pb-10 grid-bg relative">
+
+    <!-- Ambient Pastel Orbs (Creative addition over same background) -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute top-[-10%] left-[-10%] w-[40vw] h-[40vw] bg-blue-100 rounded-full mix-blend-multiply filter blur-[100px] opacity-70 animate-float-slow"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[40vw] h-[40vw] bg-pink-100 rounded-full mix-blend-multiply filter blur-[100px] opacity-70 animate-float-slow" style="animation-delay: 2s;"></div>
+        <div class="absolute top-[40%] left-[30%] w-[30vw] h-[30vw] bg-yellow-50 rounded-full mix-blend-multiply filter blur-[100px] opacity-60 animate-float-slow" style="animation-delay: 4s;"></div>
+    </div>
+
+    <div class="relative z-10">
+        <!-- Navigation -->
+        <header class="fixed top-0 left-0 right-0 z-50 glass-panel border-x-0 border-t-0 nav-load rounded-none">
+            <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
+                <!-- Desktop Links (Left) -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a class="text-xs font-medium tracking-widest uppercase hover:text-gray-500 transition-colors" href="#typography">Typography</a>
+                    <a class="text-xs font-medium tracking-widest uppercase hover:text-gray-500 transition-colors" href="#colors">Colors</a>
+                    <a class="text-xs font-medium tracking-widest uppercase hover:text-gray-500 transition-colors" href="#components">Components</a>
+                </div>
+                
+                <!-- Hamburger Button (Mobile Only) -->
+                <button id="mobile-menu-btn" class="md:hidden text-2xl flex items-center justify-center p-2 text-black hover:text-gray-500 transition-colors">
+                    <iconify-icon icon="solar:hamburger-menu-linear"></iconify-icon>
+                </button>
+
+                <!-- Logo -->
+                <div class="absolute left-1/2 -translate-x-1/2 flex items-center gap-2 group cursor-pointer">
+                    <iconify-icon class="text-2xl group-hover:rotate-180 transition-transform duration-700" icon="solar:infinity-bold-duotone"></iconify-icon>
+                    <span class="font-bold tracking-tighter text-xl">DS2</span>
+                </div>
+                
+                <!-- Desktop Links (Right) -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a class="text-xs font-medium tracking-widest uppercase hover:text-gray-500 transition-colors" href="#animations">Animations</a>
+                    <a class="text-xs font-medium tracking-widest uppercase hover:text-gray-500 transition-colors" href="#icons">Icons</a>
+                </div>
+                
+                <!-- Empty div for flex balance on mobile -->
+                <div class="md:hidden w-10"></div>
+            </div>
+        </header>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 z-[60] glass-panel bg-white/80 opacity-0 pointer-events-none transition-opacity duration-300 flex flex-col items-center justify-center">
+            <button id="mobile-close-btn" class="absolute top-6 right-6 text-3xl text-black hover:text-gray-500 transition-colors p-2">
+                <iconify-icon icon="solar:close-circle-linear"></iconify-icon>
+            </button>
+            <div class="flex flex-col items-center gap-8">
+                <a class="mobile-link text-3xl font-bold tracking-tighter hover:text-gray-500 transition-colors" href="#typography">Typography</a>
+                <a class="mobile-link text-3xl font-bold tracking-tighter hover:text-gray-500 transition-colors" href="#colors">Colors</a>
+                <a class="mobile-link text-3xl font-bold tracking-tighter hover:text-gray-500 transition-colors" href="#components">Components</a>
+                <a class="mobile-link text-3xl font-bold tracking-tighter hover:text-gray-500 transition-colors" href="#animations">Animations</a>
+                <a class="mobile-link text-3xl font-bold tracking-tighter hover:text-gray-500 transition-colors" href="#icons">Icons</a>
+            </div>
+        </div>
+
+        <!-- 1. Hero Section (Creative Asymmetric Layout) -->
+        <section class="min-h-screen flex items-center justify-center pt-20 px-6">
+            <div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <!-- Text Content -->
+                <div class="text-left">
+                    <div class="mb-6 reveal">
+                        <span class="px-4 py-2 bg-white rounded-full text-xs font-mono uppercase border border-gray-200 shadow-sm inline-flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> Version 2.0
+                        </span>
+                    </div>
+                    <div id="hero-title">
+                        <h1 class="text-6xl md:text-8xl font-bold tracking-tighter leading-none mb-2">
+                            <span class="text-reveal-wrapper"><span class="text-reveal-content delay-100">Creative</span></span>
+                        </h1>
+                        <h1 class="text-6xl md:text-8xl font-bold tracking-tighter leading-none mb-6">
+                            <span class="text-reveal-wrapper"><span class="text-reveal-content delay-200 transparent-text">System</span></span>
+                        </h1>
+                    </div>
+                    <p class="text-xl text-gray-600 mb-10 max-w-md reveal delay-300">
+                        The same identical pristine background, but with a fresh structural layout, airy glassmorphism, and soft pastel glows.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 reveal delay-500">
+                        <button class="creative-btn px-8 py-4 text-white rounded-full text-sm font-medium flex items-center gap-2 shadow-lg">
+                            <span>Get Started</span>
+                            <iconify-icon class="text-lg" icon="solar:arrow-right-linear"></iconify-icon>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Visual Content (Glass Cards Stack) -->
+                <div class="relative h-[500px] reveal delay-500 hidden md:block">
+                    <!-- Card 1 -->
+                    <div class="absolute top-[10%] right-[10%] w-[300px] h-[350px] glass-panel rounded-3xl p-8 z-20 animate-float-slow pastel-glow">
+                        <div class="w-12 h-12 rounded-full bg-black text-white flex items-center justify-center mb-6">
+                            <iconify-icon class="text-2xl" icon="solar:palette-bold-duotone"></iconify-icon>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Glass Effect</h3>
+                        <p class="text-sm text-gray-500">Soft blurred backgrounds layered elegantly over the grid.</p>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="absolute bottom-[5%] left-[5%] w-[250px] h-[280px] glass-panel rounded-3xl p-8 z-10 animate-float-slow" style="animation-delay: 2s; background: rgba(255,255,255,0.7);">
+                        <div class="w-10 h-10 rounded-full bg-gray-100 text-black flex items-center justify-center mb-6 border border-gray-200">
+                            <iconify-icon class="text-xl" icon="solar:layers-minimalistic-linear"></iconify-icon>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Stacking</h3>
+                        <p class="text-xs text-gray-500">Deep spatial perception.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Marquee Divider (Creative floating style) -->
+        <div class="py-12 overflow-hidden">
+            <div class="glass-panel py-4 transform -rotate-2 scale-105 mx-[-20px]">
+                <div class="marquee-container">
+                    <div class="marquee-content">
+                        <span class="text-sm font-mono uppercase tracking-widest text-black mx-8">Glassmorphism</span>
+                        <span class="text-sm font-mono uppercase tracking-widest text-gray-400 mx-8">•</span>
+                        <span class="text-sm font-mono uppercase tracking-widest text-black mx-8">Creative Layouts</span>
+                        <span class="text-sm font-mono uppercase tracking-widest text-gray-400 mx-8">•</span>
+                        <span class="text-sm font-mono uppercase tracking-widest text-black mx-8">Identical Background</span>
+                        <span class="text-sm font-mono uppercase tracking-widest text-gray-400 mx-8">•</span>
+                    </div>
+                    <div class="marquee-content" aria-hidden="true">
+                        <span class="text-sm font-mono uppercase tracking-widest text-black mx-8">Glassmorphism</span>
+                        <span class="text-sm font-mono uppercase tracking-widest text-gray-400 mx-8">•</span>
+                        <span class="text-sm font-mono uppercase tracking-widest text-black mx-8">Creative Layouts</span>
+                        <span class="text-sm font-mono uppercase tracking-widest text-gray-400 mx-8">•</span>
+                        <span class="text-sm font-mono uppercase tracking-widest text-black mx-8">Identical Background</span>
+                        <span class="text-sm font-mono uppercase tracking-widest text-gray-400 mx-8">•</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Typography Section (Grid Layout) -->
+        <section id="typography" class="py-24">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="mb-16 reveal text-center">
+                    <span class="text-xs font-mono uppercase text-gray-500 block mb-2 tracking-widest">01 / Foundations</span>
+                    <h2 class="text-5xl font-bold tracking-tight">Airy Typography</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Main Types -->
+                    <div class="glass-panel rounded-3xl p-10 reveal delay-100">
+                        <div class="space-y-10">
+                            <div class="border-b border-gray-200/50 pb-6">
+                                <span class="text-xs font-mono text-gray-400 uppercase tracking-widest block mb-2">Display H1</span>
+                                <h1 class="text-6xl font-bold tracking-tighter leading-none text-black">Excellence</h1>
+                            </div>
+                            <div class="border-b border-gray-200/50 pb-6">
+                                <span class="text-xs font-mono text-gray-400 uppercase tracking-widest block mb-2">Heading H2</span>
+                                <h2 class="text-4xl font-semibold tracking-tight text-black">Strategy</h2>
+                            </div>
+                            <div>
+                                <span class="text-xs font-mono text-gray-400 uppercase tracking-widest block mb-2">Heading H3</span>
+                                <h3 class="text-2xl font-medium tracking-tight text-black">Case Studies</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Body Types -->
+                    <div class="glass-panel rounded-3xl p-10 reveal delay-200">
+                        <div class="space-y-10">
+                            <div class="border-b border-gray-200/50 pb-6">
+                                <span class="text-xs font-mono text-gray-400 uppercase tracking-widest block mb-4">Body Large (Relaxed)</span>
+                                <p class="text-lg leading-relaxed text-gray-800">
+                                    Exploring how we can build better tools for thought by utilizing space, clarity, and beautiful constraints.
+                                </p>
+                            </div>
+                            <div>
+                                <span class="text-xs font-mono text-gray-400 uppercase tracking-widest block mb-4">Label / Mono (Widest)</span>
+                                <span class="text-xs font-mono uppercase tracking-widest text-gray-500 bg-white px-3 py-1 rounded-md shadow-sm">
+                                    Available 2024
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Colors Section (Floating Orbs Design) -->
+        <section id="colors" class="py-24">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="mb-16 reveal text-center">
+                    <span class="text-xs font-mono uppercase text-gray-500 block mb-2 tracking-widest">02 / Foundations</span>
+                    <h2 class="text-5xl font-bold tracking-tight">Soft Color Palette</h2>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-8">
+                    <!-- White -->
+                    <div class="flex flex-col items-center gap-4 reveal">
+                        <div class="w-32 h-32 rounded-full bg-white border border-gray-200 shadow-[0_10px_40px_rgba(0,0,0,0.05)] flex items-center justify-center pastel-glow transition-all"></div>
+                        <div class="text-center">
+                            <div class="font-bold text-black">Base White</div>
+                            <div class="font-mono text-xs text-gray-500">#FFFFFF</div>
+                        </div>
+                    </div>
+
+                    <!-- Black -->
+                    <div class="flex flex-col items-center gap-4 reveal delay-100">
+                        <div class="w-32 h-32 rounded-full bg-[#1C1C1C] shadow-[0_10px_40px_rgba(0,0,0,0.1)] flex items-center justify-center pastel-glow transition-all"></div>
+                        <div class="text-center">
+                            <div class="font-bold text-black">Deep Black</div>
+                            <div class="font-mono text-xs text-gray-500">#1C1C1C</div>
+                        </div>
+                    </div>
+
+                    <!-- Soft Blue -->
+                    <div class="flex flex-col items-center gap-4 reveal delay-200">
+                        <div class="w-32 h-32 rounded-full bg-blue-100 shadow-[0_10px_40px_rgba(219,234,254,0.5)] flex items-center justify-center pastel-glow transition-all"></div>
+                        <div class="text-center">
+                            <div class="font-bold text-black">Pastel Blue</div>
+                            <div class="font-mono text-xs text-gray-500">#DBEAFE</div>
+                        </div>
+                    </div>
+
+                    <!-- Soft Pink -->
+                    <div class="flex flex-col items-center gap-4 reveal delay-300">
+                        <div class="w-32 h-32 rounded-full bg-pink-100 shadow-[0_10px_40px_rgba(252,231,243,0.5)] flex items-center justify-center pastel-glow transition-all"></div>
+                        <div class="text-center">
+                            <div class="font-bold text-black">Pastel Pink</div>
+                            <div class="font-mono text-xs text-gray-500">#FCE7F3</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Components Section -->
+        <section id="components" class="py-24">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="mb-16 reveal text-center">
+                    <span class="text-xs font-mono uppercase text-gray-500 block mb-2 tracking-widest">03 / UI Elements</span>
+                    <h2 class="text-5xl font-bold tracking-tight">Glass Components</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <!-- Actions -->
+                    <div class="glass-panel rounded-3xl p-10 reveal">
+                        <h3 class="text-sm font-bold uppercase tracking-widest text-black mb-8">Buttons & Links</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-center gap-4">
+                                <button class="creative-btn px-6 py-3 text-white rounded-full text-sm font-medium shadow-md">
+                                    Primary Action
+                                </button>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <button class="px-6 py-3 bg-white border border-gray-200 text-black rounded-full text-sm font-medium hover:bg-gray-50 transition-colors shadow-sm">
+                                    Secondary Action
+                                </button>
+                            </div>
+                            <div class="flex items-center gap-4 pt-4">
+                                <a class="text-sm font-medium text-gray-600 hover:text-black border-b border-gray-400 hover:border-black pb-0.5 transition-colors" href="#">Animated Text Link</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Flashlight Interactive -->
+                    <div class="glass-panel rounded-3xl p-10 reveal delay-200">
+                        <h3 class="text-sm font-bold uppercase tracking-widest text-black mb-8">Interactive Cards</h3>
+                        
+                        <div class="flashlight-card p-6 cursor-pointer mb-6">
+                            <div class="relative z-10">
+                                <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm mb-4">
+                                    <iconify-icon class="text-xl text-black" icon="solar:mouse-circle-bold-duotone"></iconify-icon>
+                                </div>
+                                <h4 class="text-lg font-semibold mb-2">Hover Flashlight</h4>
+                                <p class="text-sm text-gray-600">Soft flashlight effect over a glassmorphic blurred card surface.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap gap-3">
+                            <span class="px-3 py-1 bg-black text-white rounded-full text-xs font-mono uppercase">Solid</span>
+                            <span class="px-3 py-1 glass-panel rounded-full text-xs font-mono uppercase text-black">Glass Badge</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Iconography -->
+        <section id="icons" class="py-24">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="mb-16 reveal text-center">
+                    <span class="text-xs font-mono uppercase text-gray-500 block mb-2 tracking-widest">05 / Assets</span>
+                    <h2 class="text-5xl font-bold tracking-tight">Iconography</h2>
+                </div>
+
+                <div class="glass-panel rounded-3xl p-12 reveal delay-200">
+                    <div class="grid grid-cols-3 md:grid-cols-6 gap-12 justify-items-center">
+                        <div class="flex flex-col items-center gap-4 group cursor-pointer">
+                            <div class="w-16 h-16 rounded-2xl bg-white shadow-sm border border-gray-100 flex items-center justify-center group-hover:scale-110 group-hover:shadow-md transition-all">
+                                <iconify-icon class="text-3xl text-black" icon="solar:atom-bold-duotone"></iconify-icon>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center gap-4 group cursor-pointer">
+                            <div class="w-16 h-16 rounded-2xl bg-white shadow-sm border border-gray-100 flex items-center justify-center group-hover:-translate-y-2 group-hover:shadow-md transition-all">
+                                <iconify-icon class="text-3xl text-black" icon="solar:layers-minimalistic-bold-duotone"></iconify-icon>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center gap-4 group cursor-pointer">
+                            <div class="w-16 h-16 rounded-2xl bg-white shadow-sm border border-gray-100 flex items-center justify-center group-hover:rotate-12 group-hover:shadow-md transition-all">
+                                <iconify-icon class="text-3xl text-black" icon="solar:star-bold-duotone"></iconify-icon>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center gap-4 group cursor-pointer">
+                            <div class="w-16 h-16 rounded-2xl bg-white shadow-sm border border-gray-100 flex items-center justify-center group-hover:scale-110 group-hover:shadow-md transition-all">
+                                <iconify-icon class="text-3xl text-black" icon="solar:check-circle-bold-duotone"></iconify-icon>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center gap-4 group cursor-pointer">
+                            <div class="w-16 h-16 rounded-2xl bg-white shadow-sm border border-gray-100 flex items-center justify-center group-hover:scale-110 group-hover:shadow-md transition-all">
+                                <iconify-icon class="text-3xl text-black" icon="solar:bell-bing-bold-duotone"></iconify-icon>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center gap-4 group cursor-pointer">
+                            <div class="w-16 h-16 rounded-2xl bg-white shadow-sm border border-gray-100 flex items-center justify-center group-hover:scale-110 group-hover:shadow-md transition-all">
+                                <iconify-icon class="text-3xl text-black" icon="solar:heart-bold-duotone"></iconify-icon>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-12 text-center border-t border-gray-200/50 mt-12">
+            <div class="max-w-7xl mx-auto px-6">
+                <iconify-icon class="text-4xl mb-4 text-black" icon="solar:infinity-bold-duotone"></iconify-icon>
+                <p class="text-gray-500 text-sm font-mono tracking-widest uppercase">DS2 • Creative Glass Edition</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Navigation load animation
+            setTimeout(() => {
+                document.querySelector('header').classList.add('loaded');
+            }, 100);
+
+            // Scroll reveal observer
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        const textWrappers = entry.target.querySelectorAll('.text-reveal-wrapper');
+                        if (textWrappers.length > 0 || entry.target.classList.contains('text-reveal-wrapper')) {
+                            entry.target.classList.add('reveal-active');
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+            document.querySelectorAll('h1, h2, h3').forEach(el => {
+                if (el.querySelector('.text-reveal-content')) observer.observe(el);
+            });
+
+            // Flashlight effect
+            document.querySelectorAll('.flashlight-card').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                    card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+                });
+            });
+            
+            // Smooth Scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Mobile Menu Logic
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileCloseBtn = document.getElementById('mobile-close-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+
+            function openMenu() {
+                mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+                mobileMenu.classList.add('opacity-100', 'pointer-events-auto');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeMenu() {
+                mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
+                mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+                document.body.style.overflow = '';
+            }
+
+            if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMenu);
+            if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMenu);
+            
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', closeMenu);
+            });
+        });
+    </script>
+</body>
+
+</html>
