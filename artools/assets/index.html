@@ -379,7 +379,79 @@
 
         @media (max-width: 768px) {
             .hide-mobile { display: none; }
-            .header-links { gap: 1rem; }
+            .header-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .header-logo {
+                position: static;
+                transform: none;
+                margin-right: auto;
+            }
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-primary);
+            padding: 0.5rem;
+            z-index: 100;
+        }
+
+        /* Mobile Menu Overlay */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 60;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s var(--transition-smooth);
+        }
+
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .mobile-close-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-primary);
+            padding: 0.5rem;
+        }
+
+        .mobile-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .mobile-nav-link {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.05em;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-nav-link:hover {
+            color: var(--text-secondary);
         }
 
         /* Nav Load Animation (from design_system.html) */
@@ -392,6 +464,156 @@
         .nav-load.loaded {
             opacity: 1;
             transform: translateY(0);
+        }
+        /* Features Section - Neural Architecture Layout */
+        .features-section {
+            padding: 10rem 0;
+            background-color: var(--bg-main);
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+            z-index: 10;
+        }
+
+        .features-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5vw;
+        }
+
+        .features-header {
+            margin-bottom: 5rem;
+            max-width: 700px;
+        }
+
+        .features-title {
+            font-size: clamp(2.5rem, 4vw, 4rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .features-subtitle {
+            font-size: clamp(1rem, 1.2vw, 1.25rem);
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .features-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        /* Left Panel */
+        .visual-panel {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 32px;
+            border: 1px solid rgba(0,0,0,0.05);
+            padding: 1.5rem;
+            aspect-ratio: 4/3;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.02);
+        }
+
+        .visual-panel-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            background: #000;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .visual-panel-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+            transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s;
+        }
+
+        .visual-panel:hover img {
+            transform: scale(1.05);
+            opacity: 1;
+        }
+
+        .center-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            mix-blend-mode: overlay;
+        }
+
+        /* Right List */
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .feature-list-item {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        .feature-icon {
+            flex-shrink: 0;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: all 0.4s var(--transition-smooth);
+        }
+
+        .feature-list-item:hover .feature-icon {
+            background: var(--text-primary);
+            color: #FFF;
+            border-color: var(--text-primary);
+            transform: scale(1.1);
+        }
+
+        .feature-text h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+        }
+
+        .feature-text p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 1024px) {
+            .features-layout {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            .visual-panel {
+                aspect-ratio: 16/9;
+            }
         }
     </style>
 </head>
@@ -411,8 +633,31 @@
                 <a href="#buy" class="nav-link hide-mobile">Buy</a>
                 <a href="#contact" class="nav-link">Contact</a>
             </div>
+            <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Open menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
         </div>
     </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="mobile-menu-overlay">
+        <button id="mobile-close-btn" class="mobile-close-btn" aria-label="Close menu">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <nav class="mobile-nav">
+            <a href="#design" class="mobile-nav-link">Design</a>
+            <a href="#technology" class="mobile-nav-link">Tech</a>
+            <a href="#buy" class="mobile-nav-link">Buy</a>
+            <a href="#contact" class="mobile-nav-link">Contact</a>
+        </nav>
+    </div>
 
     <!-- Scroll Track -->
     <div class="hero-track">
@@ -471,10 +716,69 @@
         </div>
     </div>
 
-    <!-- Extra space to test scrolling past the hero -->
-    <div style="height: 100vh; background: var(--bg-main); display: flex; align-items: center; justify-content: center;">
-        <h2 style="font-weight: 300; font-size: 2rem; color: var(--text-secondary);">Continue Explorando...</h2>
-    </div>
+    <!-- 2. Features Section (Neural Architecture Layout) -->
+    <section id="features" class="features-section grid-bg">
+        <div class="features-container">
+            <!-- Header -->
+            <div class="features-header reveal-feature">
+                <h2 class="features-title">Engenharia Suíça</h2>
+                <p class="features-subtitle">
+                    Nosso mecanismo proprietário sincroniza arte e ciência. Construída sobre um bloco maciço de tecnologia avançada para a melhor experiência de escrita.
+                </p>
+            </div>
+
+            <!-- Layout: Left (Image Panel), Right (Features List) -->
+            <div class="features-layout">
+                
+                <!-- Left: Visual Panel -->
+                <div class="visual-panel glass-panel reveal-left delay-100">
+                    <div class="visual-panel-inner">
+                        <img src="raw_files/precision_pen_features.png" alt="Precision Pen Hovering">
+                        <!-- Glowing orb overlay to mimic screenshot -->
+                        <div class="center-glow"></div>
+                    </div>
+                </div>
+
+                <!-- Right: Feature List -->
+                <div class="feature-list">
+                    
+                    <div class="feature-list-item reveal-right delay-200">
+                        <div class="feature-icon">
+                            <!-- Shield/Metal icon -->
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        </div>
+                        <div class="feature-text">
+                            <h3>Estrutura Monobloco 7000</h3>
+                            <p>Corpo esculpido em liga aeroespacial. Leveza desafiando a gravidade, resistência que atravessa gerações.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-list-item reveal-right delay-300">
+                        <div class="feature-icon">
+                            <!-- Gear/Mechanism icon -->
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                        </div>
+                        <div class="feature-text">
+                            <h3>Calibração Suíça Absoluta</h3>
+                            <p>Mecanismo ajustado com precisão atômica. Zero tolerância a folgas. Cada clique é uma manifestação de engenharia pura.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-list-item reveal-right delay-400">
+                        <div class="feature-icon">
+                            <!-- Droplet/Ink icon -->
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+                        </div>
+                        <div class="feature-text">
+                            <h3>Nanofluxo de Alta Resposta</h3>
+                            <p>Distribuição de tinta por canais microscópicos. Deslize imediato e secagem de 0.1s ininterrupta.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
 
     <script>
         // Register GSAP plugins
@@ -666,6 +970,84 @@
                     });
                 });
             }
+
+            /* ====================================================================
+               3. FEATURES SECTION GSAP ANIMATIONS
+               ==================================================================== */
+            if (!prefersReducedMotion) {
+                // Header reveal
+                gsap.fromTo(".features-header", 
+                    { y: 50, opacity: 0 },
+                    {
+                        scrollTrigger: {
+                            trigger: ".features-section",
+                            start: "top 80%",
+                        },
+                        y: 0,
+                        opacity: 1,
+                        duration: 1,
+                        ease: "power3.out"
+                    }
+                );
+
+                // Left panel reveal
+                gsap.fromTo(".reveal-left", 
+                    { x: -50, opacity: 0 },
+                    {
+                        scrollTrigger: {
+                            trigger: ".features-layout",
+                            start: "top 80%",
+                        },
+                        x: 0,
+                        opacity: 1,
+                        duration: 1.2,
+                        ease: "power3.out"
+                    }
+                );
+
+                // Right list items stagger reveal
+                gsap.fromTo(".reveal-right", 
+                    { x: 50, opacity: 0 },
+                    {
+                        scrollTrigger: {
+                            trigger: ".features-layout",
+                            start: "top 80%",
+                        },
+                        x: 0,
+                        opacity: 1,
+                        duration: 1,
+                        stagger: 0.2,
+                        ease: "power3.out"
+                    }
+                );
+            }
+
+            // Mobile Menu Logic
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileCloseBtn = document.getElementById('mobile-close-btn');
+            const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+            const mobileNavLinksList = document.querySelectorAll('.mobile-nav-link');
+
+            function openMenu() {
+                if(mobileMenuOverlay) {
+                    mobileMenuOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+
+            function closeMenu() {
+                if(mobileMenuOverlay) {
+                    mobileMenuOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            }
+
+            if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMenu);
+            if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMenu);
+            
+            mobileNavLinksList.forEach(link => {
+                link.addEventListener('click', closeMenu);
+            });
         });
     </script>
 </body>
