@@ -615,6 +615,122 @@
                 aspect-ratio: 16/9;
             }
         }
+
+        /* Section 3: Performance (Video Background) */
+        .performance-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        .perf-video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .perf-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.1); /* To allow parallax */
+        }
+
+        .perf-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
+            z-index: 2;
+        }
+
+        .perf-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: #FFF;
+            max-width: 1000px;
+            padding: 0 5vw;
+        }
+
+        .perf-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-family: monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 2rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 100px;
+            backdrop-filter: blur(5px);
+        }
+
+        .perf-title {
+            font-size: clamp(3rem, 6vw, 6rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            margin-bottom: 2rem;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .perf-subtitle {
+            font-size: clamp(1.125rem, 1.5vw, 1.5rem);
+            line-height: 1.6;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .perf-specs {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .spec-item {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            min-width: 180px;
+            text-align: center;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s;
+        }
+
+        .spec-item:hover {
+            transform: translateY(-10px);
+            background: rgba(255,255,255,0.1);
+        }
+
+        .spec-value {
+            display: block;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #FFF;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .spec-label {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.6);
+        }
     </style>
 </head>
 <body>
@@ -775,6 +891,45 @@
                         </div>
                     </div>
 
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Performance / Ergonomics Section -->
+    <section id="performance" class="performance-section">
+        <div class="perf-video-container" id="perf-parallax">
+            <video autoplay muted loop playsinline class="perf-video">
+                <source src="raw_files/video2.mp4" type="video/mp4">
+            </video>
+            <div class="perf-overlay"></div>
+        </div>
+
+        <div class="perf-content">
+            <div class="reveal-perf-up delay-100">
+                <span class="perf-badge">03 / Ergonomia</span>
+            </div>
+            
+            <h2 class="perf-title reveal-perf-up delay-200">
+                O Peso da <br>Perfeição.
+            </h2>
+            
+            <p class="perf-subtitle reveal-perf-up delay-300">
+                Centro de gravidade milimetricamente ajustado no eixo central. Projetada para fluir com a sua mão, eliminando a fadiga mesmo após horas de criação ininterrupta.
+            </p>
+
+            <div class="perf-specs">
+                <div class="spec-item reveal-perf-up delay-400">
+                    <span class="spec-value">24g</span>
+                    <span class="spec-label">Massa Total</span>
+                </div>
+                <div class="spec-item reveal-perf-up delay-500">
+                    <span class="spec-value">50/50</span>
+                    <span class="spec-label">Distribuição</span>
+                </div>
+                <div class="spec-item reveal-perf-up delay-600">
+                    <span class="spec-value">0.0</span>
+                    <span class="spec-label">Fadiga Muscular</span>
                 </div>
             </div>
         </div>
@@ -1017,6 +1172,35 @@
                         opacity: 1,
                         duration: 1,
                         stagger: 0.2,
+                        ease: "power3.out"
+                    }
+                );
+
+                // Section 3 Parallax Video
+                gsap.to(".perf-video", {
+                    scrollTrigger: {
+                        trigger: ".performance-section",
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: true
+                    },
+                    yPercent: 20,
+                    ease: "none"
+                });
+
+                // Section 3 Content Reveal
+                gsap.fromTo(".reveal-perf-up",
+                    { y: 60, opacity: 0, filter: "blur(10px)" },
+                    {
+                        scrollTrigger: {
+                            trigger: ".performance-section",
+                            start: "top 70%",
+                        },
+                        y: 0,
+                        opacity: 1,
+                        filter: "blur(0px)",
+                        duration: 1.2,
+                        stagger: 0.15,
                         ease: "power3.out"
                     }
                 );
