@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Precision Pen - A caneta mais tecnológica do mundo</title>
+    
+    <!-- Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- GSAP, ScrollTrigger & Lenis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    
+    
+    <link rel="stylesheet" href="assets/css/index.css">
+</head>
+<body>
+
+    <!-- Traditional Top Navigation -->
+    <header class="header-nav">
+        <div class="header-container">
+            <div class="header-links">
+                <a href="#features" class="nav-link">Design</a>
+                <a href="#performance" class="nav-link hide-mobile">Performance</a>
+            </div>
+            <a href="#" class="header-logo">
+                <span class="logo-text">PRECISION PEN</span>
+            </a>
+            <div class="header-links justify-end">
+                <a href="#technology" class="nav-link hide-mobile">Specs</a>
+                <a href="#creative" class="nav-link">Detalhes</a>
+            </div>
+            
+            <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Open menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="mobile-menu-overlay">
+        <button id="mobile-close-btn" class="mobile-close-btn" aria-label="Close menu">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <nav class="mobile-nav">
+            <a href="#features" class="mobile-nav-link">Design</a>
+            <a href="#performance" class="mobile-nav-link">Performance</a>
+            <a href="#technology" class="mobile-nav-link">Specs</a>
+            <a href="#creative" class="mobile-nav-link">Detalhes</a>
+            <a href="#buy" class="mobile-nav-link" style="color: var(--text-primary); font-weight: 700; margin-top: 2rem;">Adquirir em Pré-venda</a>
+        </nav>
+    </div>
+
+    <!-- Scroll Track -->
+    <div class="hero-track">
+        
+        <!-- Sticky Container -->
+        <div class="hero-container">
+            
+            <!-- Content Left -->
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="text-reveal-wrapper">
+                        <span class="text-reveal-content">A caneta mais</span>
+                    </span>
+                    <span class="text-reveal-wrapper">
+                        <span class="text-reveal-content text-outline">tecnológica</span>
+                    </span>
+                    <span class="text-reveal-wrapper">
+                        <span class="text-reveal-content">do mundo.</span>
+                    </span>
+                </h1>
+                
+                <p class="hero-description">
+                    Desenhada com precisão absoluta e materiais aeroespaciais. 
+                    Experimente o futuro da escrita com controle fluído e um 
+                    design que desafia a gravidade.
+                </p>
+                
+                <div class="hero-actions">
+                    <a href="#" class="btn btn-primary">
+                        Comprar Agora
+                    </a>
+                    <a href="#explore" class="btn btn-secondary">
+                        Explorar <span class="arrow">↓</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Visual Right -->
+            <div class="hero-visual">
+                <canvas id="hero-canvas" class="hero-canvas"></canvas>
+            </div>
+
+            <!-- Accents -->
+            <div class="floating-indicator">
+                <span>01</span>
+                <div class="indicator-line">
+                    <div class="indicator-line-progress"></div>
+                </div>
+            </div>
+
+            <div class="scroll-to-control">
+                <span class="scroll-text">Scroll to Control</span>
+                <div class="scroll-line"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 2. Features Section (Neural Architecture Layout) -->
+    <section id="features" class="features-section grid-bg">
+        <div class="features-container">
+            <!-- Header -->
+            <div class="features-header reveal-feature">
+                <h2 class="features-title">Engenharia Suíça</h2>
+                <p class="features-subtitle">
+                    Nosso mecanismo proprietário sincroniza arte e ciência. Construída sobre um bloco maciço de tecnologia avançada para a melhor experiência de escrita.
+                </p>
+            </div>
+
+            <!-- Layout: Left (Image Panel), Right (Features List) -->
+            <div class="features-layout">
+                
+                <!-- Left: Visual Panel -->
+                <div class="visual-panel glass-panel reveal-left delay-100">
+                    <div class="visual-panel-inner">
+                        <img src="assets/media/precision_pen_features.png" alt="Precision Pen Hovering">
+                        <!-- Glowing orb overlay to mimic screenshot -->
+                        <div class="center-glow"></div>
+                    </div>
+                </div>
+
+                <!-- Right: Feature List -->
+                <div class="feature-list">
+                    
+                    <div class="feature-list-item reveal-right delay-200">
+                        <div class="feature-icon">
+                            <!-- Shield/Metal icon -->
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        </div>
+                        <div class="feature-text">
+                            <h3>Estrutura Monobloco 7000</h3>
+                            <p>Corpo esculpido em liga aeroespacial. Leveza desafiando a gravidade, resistência que atravessa gerações.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-list-item reveal-right delay-300">
+                        <div class="feature-icon">
+                            <!-- Gear/Mechanism icon -->
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                        </div>
+                        <div class="feature-text">
+                            <h3>Calibração Suíça Absoluta</h3>
+                            <p>Mecanismo ajustado com precisão atômica. Zero tolerância a folgas. Cada clique é uma manifestação de engenharia pura.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-list-item reveal-right delay-400">
+                        <div class="feature-icon">
+                            <!-- Droplet/Ink icon -->
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+                        </div>
+                        <div class="feature-text">
+                            <h3>Nanofluxo de Alta Resposta</h3>
+                            <p>Distribuição de tinta por canais microscópicos. Deslize imediato e secagem de 0.1s ininterrupta.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Performance / Ergonomics Section -->
+    <section id="performance" class="performance-section">
+        <div class="perf-video-container" id="perf-parallax">
+            <video autoplay muted loop playsinline class="perf-video">
+                <source src="assets/media/video2.mp4" type="video/mp4">
+            </video>
+            <div class="perf-overlay"></div>
+        </div>
+
+        <div class="perf-content">
+            <div class="reveal-perf-up delay-100">
+                <span class="perf-badge">03 / Ergonomia</span>
+            </div>
+            
+            <h2 class="perf-title reveal-perf-up delay-200">
+                O Peso da <br>Perfeição.
+            </h2>
+            
+            <p class="perf-subtitle reveal-perf-up delay-300">
+                Centro de gravidade milimetricamente ajustado no eixo central. Projetada para fluir com a sua mão, eliminando a fadiga mesmo após horas de criação ininterrupta.
+            </p>
+
+            <div class="perf-specs">
+                <div class="spec-item reveal-perf-up delay-400">
+                    <span class="spec-value">24g</span>
+                    <span class="spec-label">Massa Total</span>
+                </div>
+                <div class="spec-item reveal-perf-up delay-500">
+                    <span class="spec-value">50/50</span>
+                    <span class="spec-label">Distribuição</span>
+                </div>
+                <div class="spec-item reveal-perf-up delay-600">
+                    <span class="spec-value">0.0</span>
+                    <span class="spec-label">Fadiga Muscular</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Tech Specs & Marquee Section -->
+    <section id="technology" class="specs-section">
+        <div class="specs-container">
+            <!-- Left Sticky Title -->
+            <div class="specs-left reveal-spec-left">
+                <h2 class="specs-title">Engenharia em detalhes.</h2>
+                <p class="specs-description">Cada milímetro foi projetado sem concessões. Descubra a precisão atômica que torna a Precision Pen a ferramenta definitiva.</p>
+                <div class="specs-cta">
+                    <a href="#buy" class="btn btn-primary">Adquirir em Pré-venda</a>
+                </div>
+            </div>
+            
+            <!-- Right Scrolling Specs -->
+            <div class="specs-right">
+                
+                <div class="spec-row reveal-spec-right">
+                    <div class="spec-row-header">Material do Corpo</div>
+                    <div class="spec-row-data">Liga de Alumínio Aeroespacial 7075-T6</div>
+                </div>
+
+                <div class="spec-row reveal-spec-right">
+                    <div class="spec-row-header">Mecanismo Interno</div>
+                    <div class="spec-row-data">Retrátil Magnético Silencioso (Zero Atrito)</div>
+                </div>
+
+                <div class="spec-row reveal-spec-right">
+                    <div class="spec-row-header">Sistema de Tinta</div>
+                    <div class="spec-row-data">Cartucho Pressurizado. Fluxo em 360º. Secagem 0.1s.</div>
+                </div>
+
+                <div class="spec-row reveal-spec-right">
+                    <div class="spec-row-header">Dimensões Extratas</div>
+                    <div class="spec-row-data">142mm (Comprimento) x 10mm (Diâmetro)</div>
+                </div>
+
+                <div class="spec-row reveal-spec-right">
+                    <div class="spec-row-header">Acabamento</div>
+                    <div class="spec-row-data">Anodização tipo III resistente a riscos.</div>
+                </div>
+
+            </div>
+        </div>
+        
+        <!-- Infinite Marquee -->
+        <div class="marquee-container">
+            <div class="marquee-track">
+                <span class="marquee-text">PRECISION PEN • ENGENHARIA SUÍÇA • ALUMÍNIO 7000 • TINTA NANOTECNOLÓGICA • </span>
+                <span class="marquee-text">PRECISION PEN • ENGENHARIA SUÍÇA • ALUMÍNIO 7000 • TINTA NANOTECNOLÓGICA • </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Creative Cards Section -->
+    <section id="creative" class="cards-section">
+        <div class="cards-ambient"></div>
+        <div class="cards-header reveal-cards-up">
+            <h2 class="cards-title">Além do Essencial.</h2>
+            <p class="specs-description" style="color: var(--text-secondary); margin: 0 auto;">Detalhes obsessivos que transformam uma simples ferramenta em uma obra-prima de design e interação.</p>
+        </div>
+
+        <div class="cards-grid">
+            
+            <div class="creative-card reveal-card-stagger">
+                <div class="card-inner">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                    </div>
+                    <h3 class="card-title">Acabamento Micro-jateado</h3>
+                    <p class="card-desc">Uma textura acetinada invisível a olho nu. Garante uma aderência perfeita sob qualquer condição de umidade ou temperatura, mantendo o aspecto sempre novo.</p>
+                </div>
+            </div>
+
+            <div class="creative-card reveal-card-stagger">
+                <div class="card-inner">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline><polyline points="7.5 19.79 12 17.19 16.5 19.79"></polyline><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                    </div>
+                    <h3 class="card-title">Clipe de Titânio Forjado</h3>
+                    <p class="card-desc">Produzido em titânio grau 5 puro. Flexibilidade extrema com memória de forma absoluta. Nunca deforma, mesmo sendo preso a cadernos ou bolsos espessos.</p>
+                </div>
+            </div>
+
+            <div class="creative-card reveal-card-stagger">
+                <div class="card-inner">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+                    </div>
+                    <h3 class="card-title">Arquitetura Magnética Aberta</h3>
+                    <p class="card-desc">A primeira do mundo com sistema de acoplamento universal interno. Você não fica preso a uma marca: é compatível com mais de 100 padrões de refis internacionais.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="site-footer">
+        <div class="footer-glow"></div>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h2>PRECISION PEN</h2>
+                <p>A caneta mais tecnológica do mundo. Desenhada para criadores, engenheiros e visionários que não aceitam limites.</p>
+            </div>
+            
+            <div class="footer-col">
+                <h3 class="footer-col-title">Produto</h3>
+                <ul class="footer-links">
+                    <li><a href="#features">Design</a></li>
+                    <li><a href="#performance">Performance</a></li>
+                    <li><a href="#technology">Especificações</a></li>
+                    <li><a href="#creative">Detalhes</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3 class="footer-col-title">Suporte</h3>
+                <ul class="footer-links">
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Garantia Limitada</a></li>
+                    <li><a href="#">Envios e Devoluções</a></li>
+                    <li><a href="#">Contato</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3 class="footer-col-title">Social</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Twitter (X)</a></li>
+                    <li><a href="#">YouTube</a></li>
+                    <li><a href="#">Behance</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="copyright">
+                &copy; 2026 Precision Pen. Todos os direitos reservados.
+            </div>
+            <div class="footer-bottom-links">
+                <a href="#">Política de Privacidade</a>
+                <a href="#">Termos de Serviço</a>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script src="assets/js/index.js"></script>
+</body>
+</html>

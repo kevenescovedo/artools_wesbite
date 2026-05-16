@@ -5,162 +5,11 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Design System - Digital Architect</title>
-    <script src="assets/resource_3fa48481346f.js"></script>
-    <script src="assets/iconify-icon_d39ffc6e4c56.js"></script>
-    <link href="assets/css2_19fd9cc6b396.css" rel="stylesheet" />
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #EAEAE5;
-            color: #1C1C1C;
-            overflow-x: hidden;
-        }
-
-        /* Base Reveal Animation (Scroll triggered) */
-        .reveal {
-            opacity: 0;
-            transform: translateY(2rem);
-            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Masked Text Reveal (For Hero Title) */
-        .text-reveal-wrapper {
-            overflow: hidden;
-            display: inline-block;
-            vertical-align: bottom;
-        }
-
-        .text-reveal-content {
-            transform: translateY(110%);
-            opacity: 0;
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.2s ease;
-            display: block;
-        }
-
-        .reveal-active .text-reveal-content {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        /* Stagger Delays */
-        .delay-100 {
-            transition-delay: 0.1s;
-        }
-
-        .delay-200 {
-            transition-delay: 0.2s;
-        }
-
-        .delay-300 {
-            transition-delay: 0.3s;
-        }
-
-        .delay-500 {
-            transition-delay: 0.5s;
-        }
-
-        .delay-700 {
-            transition-delay: 0.7s;
-        }
-
-        /* Carousel Fade & Ken Burns */
-        .carousel-slide {
-            position: absolute;
-            inset: 0;
-            transition: opacity 1.5s ease-in-out;
-            opacity: 0;
-            overflow: hidden;
-        }
-
-        .carousel-slide.active {
-            opacity: 1;
-        }
-
-        .carousel-slide img {
-            transform: scale(1);
-            transition: transform 10s ease-out;
-        }
-
-        .carousel-slide.active img {
-            transform: scale(1.1);
-        }
-
-        /* Marquee Animation */
-        @keyframes marquee {
-            0% {
-                transform: translateX(0);
-            }
-
-            100% {
-                transform: translateX(-50%);
-            }
-        }
-
-        .animate-marquee {
-            display: inline-block;
-            padding-left: 100%;
-            animation: marquee 30s linear infinite;
-        }
-
-        /* Add a clone to the HTML for seamless loop or use padding method */
-        .marquee-container {
-            display: flex;
-            overflow: hidden;
-            user-select: none;
-        }
-
-        .marquee-content {
-            flex-shrink: 0;
-            display: flex;
-            justify-content: space-around;
-            min-width: 100%;
-            animation: scroll 40s linear infinite;
-        }
-
-        @keyframes scroll {
-            from {
-                transform: translateX(0);
-            }
-
-            to {
-                transform: translateX(-100%);
-            }
-        }
-
-        /* Nav Load Animation */
-        .nav-load {
-            opacity: 0;
-            transform: translateY(-10px);
-            transition: all 0.8s ease-out;
-        }
-
-        .nav-load.loaded {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Icon Alignment Fix */
-        iconify-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            vertical-align: middle;
-        }
-
-        /* Utilities */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-
-        .parallax-element {
-            will-change: transform;
-        }
-    </style>
+    <script src="templates/digital-architect.aura.build/assets/resource_3fa48481346f.js"></script>
+    <script src="templates/digital-architect.aura.build/assets/iconify-icon_d39ffc6e4c56.js"></script>
+    <link href="templates/digital-architect.aura.build/assets/css2_19fd9cc6b396.css" rel="stylesheet" />
+    
+    <link rel="stylesheet" href="assets/css/templates.css">
 </head>
 
 <body class="antialiased min-h-screen selection:bg-stone-800 selection:text-white pb-10">
@@ -210,7 +59,7 @@
                     <!-- Slide 1 -->
                     <div class="carousel-slide active">
                         <img class="w-full h-full object-cover grayscale contrast-125 parallax-img" data-speed="0.05"
-                            src="assets/c7fa69dd-d7fb-48f2-a866-ef3663_f6b789593f38.webp" />
+                            src="templates/digital-architect.aura.build/assets/c7fa69dd-d7fb-48f2-a866-ef3663_f6b789593f38.webp" />
                     </div>
                 </div>
                 <div
@@ -641,79 +490,8 @@
 
     </div>
 
-    <script>
-        // Intersection Observer for Reveals (Re-used from original)
-        document.addEventListener('DOMContentLoaded', () => {
-
-            // 1. Initial Hero Animations
-            setTimeout(() => {
-                document.querySelector('header').classList.add('loaded');
-            }, 100);
-
-            setTimeout(() => {
-                const heroTitle = document.getElementById('hero-title');
-                if (heroTitle) heroTitle.classList.add('reveal-active');
-            }, 500);
-
-            setTimeout(() => {
-                document.querySelectorAll('.hero-badge, .hero-stat').forEach(el => {
-                    el.classList.add('active');
-                });
-            }, 500);
-
-            // 2. Scroll Observer
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.15
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                        // Add reveal-active to children if they exist (for text reveals)
-                        const textWrappers = entry.target.querySelectorAll('.text-reveal-wrapper');
-                        if (textWrappers.length > 0 || entry.target.classList.contains('text-reveal-wrapper')) {
-                            entry.target.classList.add('reveal-active');
-                        }
-                        // Handle internal text reveal wrappers specifically (like the Motion section h2)
-                        if (entry.target.tagName === 'H2' || entry.target.tagName === 'H1') {
-                            entry.target.classList.add('reveal-active');
-                        }
-                    }
-                });
-            }, observerOptions);
-
-            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-            // Observe custom text reveal sections if they are not inside a .reveal container
-            document.querySelectorAll('h1, h2').forEach(el => {
-                if (el.querySelector('.text-reveal-content')) observer.observe(el);
-            });
-
-            // 3. Carousel Logic
-            const slides = document.querySelectorAll('.carousel-slide');
-            let currentSlide = 0;
-            if (slides.length > 0) {
-                setInterval(() => {
-                    slides[currentSlide].classList.remove('active');
-                    currentSlide = (currentSlide + 1) % slides.length;
-                    slides[currentSlide].classList.add('active');
-                }, 5000);
-            }
-
-
-            // 4. Parallax Logic
-            window.addEventListener('scroll', () => {
-                const scrolled = window.scrollY;
-                document.querySelectorAll('.parallax-img').forEach((el) => {
-                    const speed = el.dataset.speed || 0.1;
-                    el.style.transform = `translateY(${scrolled * speed}px)`;
-                });
-            });
-        });
-    </script>
+    
+    <script src="assets/js/templates.js"></script>
 </body>
 
 </html>
